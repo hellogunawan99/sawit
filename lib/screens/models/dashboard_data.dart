@@ -1,121 +1,303 @@
 import 'package:flutter/material.dart';
 
 class DashboardData {
-  static List<StatCard> getStats() {
+  static List<PackageData> getPackages() {
     return [
-      StatCard(
-        icon: Icons.payments_rounded,
-        label: 'Total Revenue',
-        value: '\$48,294',
-        change: '+12.5%',
-        isPositive: true,
+      PackageData(
+        name: 'Sawit TBS Grade A',
+        price: 'Rp 3.281 / Kg',
+        distance: '25 Km',
+      ),
+      PackageData(
+        name: 'Sawit TBS Grade B',
+        price: 'Rp 3.181 / Kg',
+        distance: '15 Km',
+      ),
+    ];
+  }
+
+  static List<ServiceItem> getServices() {
+    return [
+      ServiceItem(
+        label: 'Toko Tani',
+        icon: Icons.shopping_bag_rounded,
+        iconColor: const Color(0xFF2E8B57),
+      ),
+      ServiceItem(
+        label: 'Rekomendasi Nutrisi Sawit',
+        icon: Icons.nature_rounded,
+        iconColor: const Color(0xFF667eea),
+      ),
+      ServiceItem(
+        label: 'Paket Susu & Minum',
+        icon: Icons.local_drink_rounded,
+        iconColor: const Color(0xFFf093fb),
+      ),
+      ServiceItem(
+        label: 'Keuangan',
+        icon: Icons.account_balance_wallet_rounded,
+        iconColor: const Color(0xFF764ba2),
+      ),
+      ServiceItem(
+        label: 'Lihat HCS',
+        icon: Icons.qr_code_scanner_rounded,
+        iconColor: const Color(0xFFf5576c),
+      ),
+      ServiceItem(
+        label: 'Filter',
+        icon: Icons.filter_list_rounded,
+        iconColor: const Color(0xFFfbbf24),
+      ),
+      ServiceItem(
+        label: 'Riwayat',
+        icon: Icons.history_rounded,
+        iconColor: const Color(0xFF4ade80),
+      ),
+      ServiceItem(
+        label: 'Notifikasi',
+        icon: Icons.notifications_rounded,
+        iconColor: const Color(0xFF38bdf8),
+      ),
+      ServiceItem(
+        label: 'Bantuan',
+        icon: Icons.help_rounded,
+        iconColor: const Color(0xFFfb923c),
+      ),
+    ];
+  }
+
+  static List<PromoItem> getPromos() {
+    return [
+      PromoItem(
+        title: 'Diskon Pupuk Sawit 20%',
+        description: 'Dapatkan diskon khusus untuk pembelian pupuk sawit premium kualitas terbaik.',
+        discount: '20% OFF',
+        validUntil: 'Berakhir 30 Jan',
+        icon: Icons.eco_rounded,
+        color: const Color(0xFF2E8B57),
+      ),
+      PromoItem(
+        title: 'Gratis Ongkir KUD',
+        description: 'Gratis ongkos kirim untuk pemesanan minimal 500kg dalam radius 30km.',
+        discount: 'GRATIS',
+        validUntil: 'Berakhir 25 Jan',
+        icon: Icons.local_shipping_rounded,
         color: const Color(0xFF667eea),
       ),
-      StatCard(
-        icon: Icons.shopping_cart_rounded,
-        label: 'Total Orders',
-        value: '1,284',
-        change: '+8.2%',
-        isPositive: true,
-        color: const Color(0xFF764ba2),
+      PromoItem(
+        title: 'Cashback Hingga Rp 500rb',
+        description: 'Cashback langsung untuk transaksi pembelian sawit TBS Grade A minggu ini.',
+        discount: 'Rp 500K',
+        validUntil: 'Berakhir 20 Jan',
+        icon: Icons.account_balance_wallet_rounded,
+        color: const Color(0xFFfbbf24),
       ),
-      StatCard(
-        icon: Icons.people_rounded,
-        label: 'New Customers',
-        value: '3,842',
-        change: '+24.3%',
-        isPositive: true,
-        color: const Color(0xFFf093fb),
-      ),
-      StatCard(
-        icon: Icons.trending_down_rounded,
-        label: 'Pending Orders',
-        value: '18',
-        change: '-5.1%',
-        isPositive: false,
+      PromoItem(
+        title: 'Paket Hemat Nutrisi',
+        description: 'Beli 3 nutrisi sawit gratis 1 untuk kesehatan tanaman perkebunan Anda.',
+        discount: 'BUY 3 GET 1',
+        validUntil: 'Berakhir 15 Feb',
+        icon: Icons.card_giftcard_rounded,
         color: const Color(0xFFf5576c),
       ),
     ];
   }
 
-  static List<Activity> getRecentActivities() {
+  static List<OrderItem> getOrders() {
     return [
-      Activity(
-        icon: Icons.shopping_bag_rounded,
-        title: 'New order received',
-        time: '2 minutes ago',
-        amount: '+\$249.00',
-        isPositive: true,
-        color: const Color(0xFF667eea),
+      OrderItem(
+        id: '#ORD-2024-001',
+        productName: 'Sawit TBS Grade A',
+        quantity: 500,
+        totalPrice: 'Rp 1.640.500',
+        status: 'Diproses',
+        statusColor: const Color(0xFFfbbf24),
+        date: '12 Jan 2024',
       ),
-      Activity(
-        icon: Icons.person_add_rounded,
-        title: 'New customer registered',
-        time: '15 minutes ago',
-        amount: '+1',
-        isPositive: true,
-        color: const Color(0xFF764ba2),
+      OrderItem(
+        id: '#ORD-2024-002',
+        productName: 'Sawit TBS Grade B',
+        quantity: 350,
+        totalPrice: 'Rp 1.113.350',
+        status: 'Selesai',
+        statusColor: const Color(0xFF4ade80),
+        date: '10 Jan 2024',
       ),
-      Activity(
-        icon: Icons.cancel_rounded,
-        title: 'Order cancelled',
-        time: '1 hour ago',
-        amount: '-\$89.00',
-        isPositive: false,
-        color: const Color(0xFFf5576c),
+      OrderItem(
+        id: '#ORD-2024-003',
+        productName: 'Pupuk Sawit Premium',
+        quantity: 100,
+        totalPrice: 'Rp 850.000',
+        status: 'Selesai',
+        statusColor: const Color(0xFF4ade80),
+        date: '8 Jan 2024',
       ),
-      Activity(
-        icon: Icons.payments_rounded,
-        title: 'Payment received',
-        time: '2 hours ago',
-        amount: '+\$1,299.00',
-        isPositive: true,
-        color: const Color(0xFF4ade80),
+      OrderItem(
+        id: '#ORD-2024-004',
+        productName: 'Sawit TBS Grade A',
+        quantity: 200,
+        totalPrice: 'Rp 656.200',
+        status: 'Pending',
+        statusColor: const Color(0xFFf5576c),
+        date: '5 Jan 2024',
       ),
-      Activity(
-        icon: Icons.local_shipping_rounded,
-        title: 'Order shipped',
-        time: '3 hours ago',
-        amount: 'ORD-2847',
-        isPositive: true,
-        color: const Color(0xFFfbbf24),
+      OrderItem(
+        id: '#ORD-2024-005',
+        productName: 'Nutrisi Tanaman Sawit',
+        quantity: 50,
+        totalPrice: 'Rp 425.000',
+        status: 'Selesai',
+        statusColor: const Color(0xFF4ade80),
+        date: '3 Jan 2024',
       ),
     ];
+  }
+
+  static ProfileData getProfile() {
+    return ProfileData(
+      name: 'KUD Sawit Makmur',
+      email: 'kud.sawitmakmur@example.com',
+      phone: '+62 812-3456-7890',
+      address: 'Jl. Perkebunan No. 123, Riau',
+      totalOrders: '156',
+      completedOrders: '142',
+      pendingOrders: '3',
+      memberSince: 'Jan 2022',
+      menuItems: [
+        ProfileMenuItem(
+          label: 'Edit Profil',
+          icon: Icons.edit_rounded,
+          iconColor: const Color(0xFF2E8B57),
+        ),
+        ProfileMenuItem(
+          label: 'Alamat Pengiriman',
+          icon: Icons.location_on_rounded,
+          iconColor: const Color(0xFF667eea),
+        ),
+        ProfileMenuItem(
+          label: 'Metode Pembayaran',
+          icon: Icons.payment_rounded,
+          iconColor: const Color(0xFF764ba2),
+        ),
+        ProfileMenuItem(
+          label: 'Riwayat Transaksi',
+          icon: Icons.receipt_long_rounded,
+          iconColor: const Color(0xFFfbbf24),
+        ),
+        ProfileMenuItem(
+          label: 'Notifikasi',
+          icon: Icons.notifications_rounded,
+          iconColor: const Color(0xFFf5576c),
+        ),
+        ProfileMenuItem(
+          label: 'Pusat Bantuan',
+          icon: Icons.help_rounded,
+          iconColor: const Color(0xFF38bdf8),
+        ),
+        ProfileMenuItem(
+          label: 'Tentang Aplikasi',
+          icon: Icons.info_rounded,
+          iconColor: const Color(0xFF4ade80),
+        ),
+      ],
+    );
   }
 }
 
-class StatCard {
-  final IconData icon;
+class PackageData {
+  final String name;
+  final String price;
+  final String distance;
+
+  PackageData({
+    required this.name,
+    required this.price,
+    required this.distance,
+  });
+}
+
+class ServiceItem {
   final String label;
-  final String value;
-  final String? change;
-  final bool? isPositive;
+  final IconData icon;
+  final Color iconColor;
+
+  ServiceItem({
+    required this.label,
+    required this.icon,
+    required this.iconColor,
+  });
+}
+
+class PromoItem {
+  final String title;
+  final String description;
+  final String discount;
+  final String validUntil;
+  final IconData icon;
   final Color color;
 
-  StatCard({
+  PromoItem({
+    required this.title,
+    required this.description,
+    required this.discount,
+    required this.validUntil,
     required this.icon,
-    required this.label,
-    required this.value,
-    this.change,
-    this.isPositive,
     required this.color,
   });
 }
 
-class Activity {
-  final IconData icon;
-  final String title;
-  final String time;
-  final String amount;
-  final bool isPositive;
-  final Color color;
+class OrderItem {
+  final String id;
+  final String productName;
+  final int quantity;
+  final String totalPrice;
+  final String status;
+  final Color statusColor;
+  final String date;
 
-  Activity({
+  OrderItem({
+    required this.id,
+    required this.productName,
+    required this.quantity,
+    required this.totalPrice,
+    required this.status,
+    required this.statusColor,
+    required this.date,
+  });
+}
+
+class ProfileData {
+  final String name;
+  final String email;
+  final String phone;
+  final String address;
+  final String totalOrders;
+  final String completedOrders;
+  final String pendingOrders;
+  final String memberSince;
+  final List<ProfileMenuItem> menuItems;
+
+  ProfileData({
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.address,
+    required this.totalOrders,
+    required this.completedOrders,
+    required this.pendingOrders,
+    required this.memberSince,
+    required this.menuItems,
+  });
+}
+
+class ProfileMenuItem {
+  final String label;
+  final IconData icon;
+  final Color iconColor;
+
+  ProfileMenuItem({
+    required this.label,
     required this.icon,
-    required this.title,
-    required this.time,
-    required this.amount,
-    required this.isPositive,
-    required this.color,
+    required this.iconColor,
   });
 }
