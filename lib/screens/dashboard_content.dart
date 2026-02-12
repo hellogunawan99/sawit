@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/dashboard_data.dart';
+import 'keuangan_screen.dart';
 
 class DashboardContent extends StatefulWidget {
   const DashboardContent({super.key});
@@ -154,13 +155,15 @@ class _DashboardContentState extends State<DashboardContent> {
         _buildHeader(),
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildPricingSection(packages),
-                const SizedBox(height: 20),
+                _buildTopPriceCard(packages),
+                const SizedBox(height: 32),
                 _buildServiceGrid(services),
+                const SizedBox(height: 32),
+                _buildBottomCards(),
               ],
             ),
           ),
@@ -172,7 +175,7 @@ class _DashboardContentState extends State<DashboardContent> {
   Widget _buildHeader() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      padding: const EdgeInsets.fromLTRB(16, 24, 16, 32),
       decoration: const BoxDecoration(
         color: Color(0xFF2E8B57),
         borderRadius: BorderRadius.only(
@@ -184,6 +187,7 @@ class _DashboardContentState extends State<DashboardContent> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (_isLoading)
                 const SizedBox(
@@ -193,41 +197,27 @@ class _DashboardContentState extends State<DashboardContent> {
                     strokeWidth: 2,
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
-                )
-              else
-                const Icon(
-                  Icons.location_on_rounded,
-                  color: Colors.white,
-                  size: 16,
                 ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  _currentLocation,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: _getCurrentLocation,
-                child: const Icon(
-                  Icons.refresh_rounded,
+              if (_isLoading) const SizedBox(width: 8),
+              Text(
+                _currentLocation,
+                style: const TextStyle(
                   color: Colors.white,
-                  size: 18,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          const Text(
-            'Hallo, User Name KUD',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          const SizedBox(height: 24),
+          const Center(
+            child: Text(
+              'Hallo, User Name KUD',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -235,35 +225,18 @@ class _DashboardContentState extends State<DashboardContent> {
     );
   }
 
-  Widget _buildPricingSection(List<PackageData> packages) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Hari Ini',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1a1a2e),
-          ),
-        ),
-        const SizedBox(height: 12),
-        ...packages.map(
-          (package) => Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: _buildPricingCard(package),
-          ),
-        ),
-      ],
-    );
-  }
+  Widget _buildTopPriceCard(List<PackageData> packages) {
+    final PackageData? first =
+        packages.isNotEmpty ? packages[0] : null;
+    final PackageData? second =
+        packages.length > 1 ? packages[1] : null;
 
-  Widget _buildPricingCard(PackageData package) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
@@ -272,108 +245,165 @@ class _DashboardContentState extends State<DashboardContent> {
           ),
         ],
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: const Color(0xFF2E8B57).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+          if (first != null) ...[
+            const Text(
+              'Nama Pabrik',
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFF7C7C7C),
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            child: const Icon(
-              Icons.agriculture_rounded,
-              color: Color(0xFF2E8B57),
-              size: 30,
+            const SizedBox(height: 8),
+            Text(
+              first.price,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  package.name,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey.shade600,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  package.price,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2E8B57),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_rounded,
-                      size: 14,
-                      color: Colors.grey.shade500,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      package.distance,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+            const SizedBox(height: 4),
+            Text(
+              first.distance,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color(0xFF2E8B57),
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          Icon(
-            Icons.arrow_forward_ios_rounded,
-            size: 16,
-            color: Colors.grey.shade400,
-          ),
+          ],
+          if (second != null) ...[
+            const SizedBox(height: 24),
+            Divider(
+              color: Colors.grey.shade300,
+              thickness: 1,
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Nama Pabrik',
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFF7C7C7C),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              second.price,
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              second.distance,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ],
       ),
     );
   }
 
   Widget _buildServiceGrid(List<ServiceItem> services) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 0.9,
+      ),
+      itemCount: services.length,
+      itemBuilder: (context, index) {
+        final service = services[index];
+        return _buildServiceTile(service);
+      },
+    );
+  }
+
+  Widget _buildBottomCards() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Layanan',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1a1a2e),
+        Container(
+          height: 140,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.06),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 12),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.0,
-          ),
-          itemCount: services.length,
-          itemBuilder: (context, index) {
-            final service = services[index];
-            return _buildServiceTile(service);
-          },
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 120,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Container(
+                height: 120,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.06),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );
   }
 
   Widget _buildServiceTile(ServiceItem service) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        if (service.label == 'Keuangan') {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const KeuanganScreen(),
+            ),
+          );
+        }
+      },
+      child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -414,6 +444,7 @@ class _DashboardContentState extends State<DashboardContent> {
           ),
         ],
       ),
+    ),
     );
   }
 }

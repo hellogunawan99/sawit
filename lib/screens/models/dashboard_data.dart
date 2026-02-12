@@ -29,39 +29,24 @@ class DashboardData {
         iconColor: const Color(0xFF667eea),
       ),
       ServiceItem(
-        label: 'Paket Susu & Minum',
-        icon: Icons.local_drink_rounded,
-        iconColor: const Color(0xFFf093fb),
-      ),
-      ServiceItem(
-        label: 'Keuangan',
-        icon: Icons.account_balance_wallet_rounded,
-        iconColor: const Color(0xFF764ba2),
-      ),
-      ServiceItem(
-        label: 'Lihat HCS',
-        icon: Icons.qr_code_scanner_rounded,
+        label: 'Pelajari Gulma & Hama',
+        icon: Icons.grass_rounded,
         iconColor: const Color(0xFFf5576c),
       ),
       ServiceItem(
-        label: 'Filter',
-        icon: Icons.filter_list_rounded,
-        iconColor: const Color(0xFFfbbf24),
+        label: 'Tanya Konsultan',
+        icon: Icons.forum_rounded,
+        iconColor: const Color(0xFFf093fb),
       ),
       ServiceItem(
-        label: 'Riwayat',
-        icon: Icons.history_rounded,
+        label: 'Lihat PKS',
+        icon: Icons.factory_rounded,
         iconColor: const Color(0xFF4ade80),
       ),
       ServiceItem(
-        label: 'Notifikasi',
-        icon: Icons.notifications_rounded,
-        iconColor: const Color(0xFF38bdf8),
-      ),
-      ServiceItem(
-        label: 'Bantuan',
-        icon: Icons.help_rounded,
-        iconColor: const Color(0xFFfb923c),
+        label: 'All Fitur',
+        icon: Icons.apps_rounded,
+        iconColor: const Color(0xFFfbbf24),
       ),
     ];
   }
